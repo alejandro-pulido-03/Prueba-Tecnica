@@ -1,0 +1,19 @@
+{
+  "name": "pokeapi-tech-interview",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "json-server -w src/data/pokemons.json -p 3002 & vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vaadin/router": "^1.7.5",
+    "json-server": "^1.0.0-beta.1",
+    "lit": "^3.2.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.1"
+  }
+}
