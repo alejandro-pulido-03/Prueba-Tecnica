@@ -151,7 +151,7 @@ class PokemonEvolutionCard extends LitElement {
                         <input 
                             type="checkbox"
                             ?checked="${this.is_repeated}"
-                            disabled
+                            @change="${this._handleCheckboxChange}"
                         >
                     </div>
                     <button @click=${this._send_form}>Enviar</button>
@@ -173,6 +173,10 @@ class PokemonEvolutionCard extends LitElement {
             </div>
         </div>
         `
+    }
+
+    _handleCheckboxChange(e) {
+        this.is_repeated = e.target.checked;
     }
 
     _switch_modal(e, isFormModal = true) {
