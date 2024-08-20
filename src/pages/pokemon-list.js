@@ -1,4 +1,4 @@
-import { html, LitElement } from "lit";
+import { css, html, LitElement } from "lit";
 import "../components/pokemon-card";
 
 class PokemonList extends LitElement {
@@ -6,6 +6,23 @@ class PokemonList extends LitElement {
     static properties = {
         pokemon_data: { type: Array }
     }
+
+    static styles = css`
+        section{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            justify-items: center;
+            align-items: center;
+            padding: 0px;
+            gap: 20px 20px;
+            margin: 0 auto;
+
+        }
+
+        a{
+                text-decoration: none;
+        }
+    `
 
     async _get_data() {
         await fetch("http://localhost:3002/pokemon").then(
@@ -19,14 +36,19 @@ class PokemonList extends LitElement {
     }
 
     render() {
-        return html`<h1>Pokemon list</h1>
-        ${this.pokemon_data?.map((pokemon => html`
-            <pokemon-card 
-                .name=${pokemon.name} 
-                .type=${pokemon.type} 
-                .img_name=${pokemon.image} 
-                .pokemon_id=${pokemon.id}>
-            </pokemon-card>`))}
+        return html`
+        <section>
+            ${this.pokemon_data?.map((pokemon => html`
+                <a href=${"/" + pokemon.name}>
+                <pokemon-card 
+                    .name=${pokemon.name} 
+                    .type=${pokemon.type} 
+                    .img_name=${pokemon.image} 
+                    .pokemon_id=${pokemon.id}>
+                </pokemon-card>
+                </a>
+                `))}
+        </section>
         `
     }
 

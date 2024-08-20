@@ -1,13 +1,13 @@
 import { LitElement, html } from "lit";
-
+import "../components/pokemon-evolution-card";
 import { router } from "../utils/router";
 class PokemonDetail extends LitElement {
     static properties = {
-        img_name: { type: String },
-        name: { type: String },
-        pokemon_id: { type: String },
-        type: { type: String },
-        evolutions: { type: Array }
+        img_name: { type: String, state: true },
+        name: { type: String, state: true },
+        pokemon_id: { type: String, state: true },
+        type: { type: String, state: true },
+        evolutions: { type: Array, state: true }
     }
 
     async _get_data() {
@@ -31,6 +31,7 @@ class PokemonDetail extends LitElement {
 
     render() {
         return html`
+        <a href="/">Back</a>
         ${this.name &&
             html`
         <pokemon-card 
@@ -41,12 +42,7 @@ class PokemonDetail extends LitElement {
         </pokemon-card>`
             }
         ${this.evolutions?.map((pokemon => html`
-            <pokemon-card 
-                .name=${pokemon.name} 
-                .type=${pokemon.type} 
-                .img_name=${pokemon.image} 
-                .pokemon_id=${pokemon.id}>
-            </pokemon-card>`))}
+            <pokemon-evolution-card .evolution=${pokemon}></pokemon-evolution-card>`))}
         `
     }
 

@@ -4,5 +4,8 @@
 body {
     margin: 0;
 
+    box-sizing: border-box;
+
+    background: #f8f8f8;
     font-family: "Anek Devanagari", sans-serif;
 }

@@ -3,7 +3,7 @@ import { Router } from "@vaadin/router";
 export let router;
 
 export function initRouter() {
-    router = new Router(this.shadowRoot);
+    router = new Router(this.shadowRoot.querySelector('#outlet'));
 
     router.setRoutes([
         {

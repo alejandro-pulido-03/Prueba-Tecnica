@@ -1,7 +1,7 @@
 const type_color = {
     "Grass": "#8ddb8a",
     "Poison": "#ae7cfd",
-    "Fire": "#ae7cfd",
+    "Fire": "#ffad76",
     "Water": "#92b8f7",
     "Electric": "#ffd757",
     "Rock": "#dbc27e",
@@ -9,7 +9,7 @@ const type_color = {
 }
 
 export default function type_colors(type) {
-    console.log(type);
     const types = type?.split("/") ?? ["default"];
-    return types.map(elem => { return { type: elem, color: type_color[elem] ?? type_color.default } })
+
+    return types.map(elem => { return { type: elem, color: type_color[elem] ?? type_color.default, is_default: !type_color[elem] } });
 } 
