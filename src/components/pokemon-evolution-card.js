@@ -7,7 +7,7 @@ class PokemonEvolutionCard extends LitElement {
             evolution: { type: Object },
             openModal: { type: Boolean },
             warning_trigger: { type: Boolean },
-            checked: { type: Boolean }
+            is_repeated: { type: Boolean }
         };
     }
 
@@ -52,7 +52,8 @@ class PokemonEvolutionCard extends LitElement {
         .modal-shadow {
             position: fixed;
             top: 0; 
-            z-index:2;
+            left: 0;
+            z-index:9999;
 
             display:flex;
             justify-content: center;
@@ -89,6 +90,7 @@ class PokemonEvolutionCard extends LitElement {
             position: absolute;
             top:0;
             right: 0;
+            cursor: pointer;
         }
 
         .modal form {
@@ -148,8 +150,8 @@ class PokemonEvolutionCard extends LitElement {
                         <label>Está repetido</label>
                         <input 
                             type="checkbox"
-                            ?checked="${this.checked}"
-                            @change="${this._handleCheckboxChange}"
+                            ?checked="${this.is_repeated}"
+                            disabled
                         >
                     </div>
                     <button @click=${this._send_form}>Enviar</button>
@@ -173,10 +175,6 @@ class PokemonEvolutionCard extends LitElement {
         `
     }
 
-    _handleCheckboxChange(e) {
-        this.checked = e.target.checked;
-    }
-
     _switch_modal(e, isFormModal = true) {
         if (isFormModal) {
             this.openModal = !this.openModal;
@@ -189,7 +187,7 @@ class PokemonEvolutionCard extends LitElement {
 
     _send_form() {
         this._switch_modal(null, true);
-        if (this.checked) {
+        if (this.is_repeated) {
             this._switch_modal(null, false);
         }
     }
