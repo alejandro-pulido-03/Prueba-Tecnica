@@ -21,7 +21,9 @@ class PokemonList extends LitElement {
         }
 
         a{
-                text-decoration: none;
+            width: 100%;
+            
+            text-decoration: none;
         }
     `
 

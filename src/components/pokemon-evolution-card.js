@@ -8,6 +8,7 @@ class PokemonEvolutionCard extends LitElement {
         return {
             evolution: { type: Object },
             openModal: { type: Boolean },
+            is_repeated: { type: Boolean },
         };
     }
 
@@ -17,15 +18,19 @@ class PokemonEvolutionCard extends LitElement {
     }
 
     static styles = css`
+        :host{
+            width: 100%;
+        }
+
         .pokemon-evolution__container{
             position: relative;
-
-            width: min-content
+            margin: 0 auto;
+            max-width: 300px;
         }
 
         .pokemon-evolution__container button{
             position: absolute;
-            right: 10px;
+            right: 12%;
             top: 10px;
             z-index: 1;
 
@@ -63,7 +68,7 @@ class PokemonEvolutionCard extends LitElement {
             ${this.openModal ?
                 html`
                 <pokemon-modal @toggleModal=${this._toggle_modal}>
-                    <form-modal .evolution=${this.evolution}></form-modal>
+                    <form-modal .evolution=${this.evolution} .is_repeated=${this.is_repeated}></form-modal>
                 </pokemon-modal>
                 ` : ""
             }

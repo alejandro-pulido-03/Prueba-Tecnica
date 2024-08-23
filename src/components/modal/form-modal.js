@@ -1,5 +1,4 @@
 import { css, html, LitElement } from "lit";
-import { editIcon } from "../../assets/icons";
 
 class FormModal extends LitElement {
 
@@ -93,7 +92,6 @@ class FormModal extends LitElement {
     `;
 
     modal() {
-        console.log(editIcon.strings.raw);
         return html`        
             <form class="form-modal">
                 <div class="input-group">
@@ -135,7 +133,6 @@ class FormModal extends LitElement {
     }
 
     _img_name(e) {
-        console.log(e.target.files[0]);
         const input = e.target;
         if (input.files?.length) {
             const file = input.files[0];

@@ -12,7 +12,7 @@ export class Header extends LitElement {
         h1{
             margin: 0;
 
-            font-size:4rem;
+            font-size: clamp(1rem, 10vw, 4rem); 
 
             color: white;
         }

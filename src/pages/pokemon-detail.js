@@ -68,29 +68,37 @@ class PokemonDetail extends LitElement {
 
         .pokemon-detail__main{
             display: flex;
-            width: 95%;
-            margin: 0 auto; 
             align-items: center;
-            flex: 1;
+            justify-content: center;
+
             flex-wrap: wrap;
+
+            margin: 0 auto; 
+            
         }
 
-            section{
+        section{
             display: grid;
-            max-width: 100%;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             justify-items: center;
             align-items: center;
+            width: 100%;
+
             padding: 30px 0px 50px 0px;
             gap: 20px 20px;
-            margin: 0 auto;
 
         }
 
         .pokemon-detail__container{
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
+
+            margin: 10px;
+            margin-top: 30px;
+
             gap: 30px;  
+
         }
 
         img{

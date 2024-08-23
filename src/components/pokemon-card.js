@@ -26,11 +26,15 @@ class PokemonCard extends LitElement {
         css`
             :host{
                 --image-side: 100px;
+                
             }
 
             .pokemon-card__container {
                 position: relative;
-                width: 300px;
+                width: 80%;
+                max-width: 300px;
+
+                margin: 0 auto;
                 margin-top: calc(var(--image-side) / 2  + 10px);
                 padding-top: calc(var(--image-side) / 2);
                 padding-bottom: 20px;
@@ -95,7 +99,7 @@ class PokemonCard extends LitElement {
                 <h1>${this.name}</h1>
                 ${this.types.map(t => html`<type-badge .type_obj=${t}></type-badge>`)}
                 <span class="pokemon-id__float">
-                    ${this.pokemon_id}
+                    ${this.pokemon_id ? "Id:" + this.pokemon_id : ""}
                 </span>
             </div>
         </div>
