@@ -25,7 +25,6 @@ class Root extends LitElement {
         }
     `
 
-
     render() {
         return html`
             <header-app></header-app>

@@ -9,6 +9,7 @@ class PokemonDetail extends LitElement {
         img_name: { type: String, state: true },
         name: { type: String, state: true },
         pokemon_id: { type: String, state: true },
+        types: { type: Array, state: true },
         type: { type: String, state: true },
         is_repeated: { type: Boolean, state: true },
         evolutions: { type: Array, state: true },
@@ -32,12 +33,37 @@ class PokemonDetail extends LitElement {
         }
 
         .backBtn{
+            display: flex;
             margin-left: 30px;
         }
 
+        .backBtn a{
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            gap: 10px;
+
+            padding: 5px 10px;
+
+            font-size: 1.2rem;
+            text-decoration: none;
+
+            border-radius: 8px;
+            background-color: #3a3a3a;
+            color: white;
+        }
+
         .backBtn svg{
-            width: 40px;
-            height: 40px;
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+        
+        .backBtn path{
+            fill: white;
+        }
+
+        .backBtn span{
+            padding-top: 5px;
         }
 
         .pokemon-detail__main{
@@ -107,8 +133,8 @@ class PokemonDetail extends LitElement {
 
     render() {
         return html`
-        <div>
-            <a class="backBtn" href="/">${backIcon}</a>
+        <div class="backBtn">
+            <a href="/">${backIcon} <span>Regresar</span></a>
         </div>
         <div class="pokemon-detail__main">
         ${this.name &&
@@ -120,8 +146,8 @@ class PokemonDetail extends LitElement {
                         style=${styleMap({ color: this._styles.color })}
                     >
                         <h1>${this.name}</h1>
-                        <p>${this.type}</p>
-                        <p>${this.pokemon_id}</p>
+                        ${this.types.map(t => html`<type-badge .type_obj=${t}></type-badge>`)}
+                        <p>Id: ${this.pokemon_id}</p>
                     </div>
                 </div>
                 `

@@ -1,8 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { styleMap } from "lit/directives/style-map.js";
 import type_colors from "../utils/type_color_mapper";
-
-
+import "./type-badge";
 class PokemonCard extends LitElement {
     get properties() {
         return {
@@ -20,7 +19,7 @@ class PokemonCard extends LitElement {
         this._styles = {
             filter: "drop-shadow(2px 1px 20px #a2a3a0)",
             color: "black"
-        }
+        };
     }
 
     static styles = [
@@ -34,14 +33,15 @@ class PokemonCard extends LitElement {
                 width: 300px;
                 margin-top: calc(var(--image-side) / 2  + 10px);
                 padding-top: calc(var(--image-side) / 2);
+                padding-bottom: 20px;
 
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 
                 border-radius: 10px;
-                background-color: white;
-                box-shadow: 0px 0px 2px 1px #00000017;
+                background-color: #303030;
+                box-shadow: 0px 0px 10px 1px #ffffff30;
             }
 
             .pokemon-card__img img{
@@ -55,7 +55,16 @@ class PokemonCard extends LitElement {
                 top: -50px;
             }
 
-        `];
+            .pokemon-id__float{
+                position: absolute;
+                top: 10px;
+                left: 15px;
+
+                color: #a2a2a2;
+            }
+
+        `
+    ];
 
     connectedCallback() {
         super.connectedCallback();
@@ -63,8 +72,8 @@ class PokemonCard extends LitElement {
 
         const main_type = this.types.find(t => !t.is_default) ?? this.types[0];
 
-        this._styles.filter = `drop-shadow(2px 1px 20px ${main_type.color})`
-        this._styles.color = `${main_type.color}`
+        this._styles.filter = `drop-shadow(2px 1px 20px ${main_type.color})`;
+        this._styles.color = `${main_type.color}`;
     }
 
 
@@ -84,13 +93,15 @@ class PokemonCard extends LitElement {
                 style=${styleMap({ color: this._styles.color })}
             >
                 <h1>${this.name}</h1>
-                <p>${this.type}</p>
-                <p>${this.pokemon_id}</p>
+                ${this.types.map(t => html`<type-badge .type_obj=${t}></type-badge>`)}
+                <span class="pokemon-id__float">
+                    ${this.pokemon_id}
+                </span>
             </div>
         </div>
-        `
+        `;
     }
 
-}
+};
 
 customElements.define('pokemon-card', PokemonCard);

@@ -16,6 +16,7 @@ class PokemonList extends LitElement {
             padding: 0px;
             gap: 20px 20px;
             margin: 0 auto;
+            margin-bottom: 50px;
 
         }
 

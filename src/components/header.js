@@ -14,7 +14,7 @@ export class Header extends LitElement {
 
             font-size:4rem;
 
-            color: black
+            color: white;
         }
 
         svg{
@@ -25,12 +25,12 @@ export class Header extends LitElement {
 
             width: 40vw;
             height: 40vw; 
-
             transform: rotate(120deg);
         }
 
         path{
-            opacity: 0.20 !important;
+            fill:  white !important;
+            opacity: 0.05 !important;
         }
     `
 

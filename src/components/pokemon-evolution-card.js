@@ -1,13 +1,13 @@
 import { LitElement, css, html } from "lit";
-import { closeIcon, editIcon } from "../assets/icons";
+import { editIcon } from "../assets/icons";
+import "./modal/form-modal";
+import "./modal/modal";
 
 class PokemonEvolutionCard extends LitElement {
     get properties() {
         return {
             evolution: { type: Object },
             openModal: { type: Boolean },
-            warning_trigger: { type: Boolean },
-            is_repeated: { type: Boolean }
         };
     }
 
@@ -42,167 +42,33 @@ class PokemonEvolutionCard extends LitElement {
         }
 
         .pokemon-evolution__container button:hover{
-            background-color:#dadada;
+            background-color:#5b5b5b;
+            fill:#dadada;
         }
 
         .pokemon-evolution__container svg{
-            fill:#585858;
-        }
-
-        .modal-shadow {
-            position: fixed;
-            top: 0; 
-            left: 0;
-            z-index:9999;
-
-            display:flex;
-            justify-content: center;
-            align-items: center;
-
-            width: 100vw;
-            height: 100vh;
-
-
-            background-color: #00000025;
-        }
-
-        
-        .modal {
-            background: white;
-            padding: 50px 20px 20px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
-            width: 100%;
-            position: relative;
-        } 
-
-        .modal button {
-            background-color: #ececec;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 4px;
-        }
-
-        .modal .closeIcon {
-            background-color: transparent;
-            position: absolute;
-            top:0;
-            right: 0;
-            cursor: pointer;
-        }
-
-        .modal form {
-            display: flex;
-            flex-direction: column;
-            
-            gap: 15px;
-        }
-
-        .modal input {
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        .modal input[type="checkbox"] {
-            margin: 0;
-            align-self: flex-start;
-            width: 20px;
-            height: 20px;
-        }
-
-        .input-group{
-            display:flex;
-            flex-direction: column;
-        }
-
-        .warn-modal{
-            position: relative;
-        }
-
-        .modal-header{
-            position: absolute;
-            top:0;
-            left:0;
-            padding: 20px;
-            font-weight: 800;
+            fill:#c5c5c5;
         }
     `;
 
-    modal() {
-        return html`
-        <div class="modal-shadow">
-            <div class="modal">
-                <button @click=${this._switch_modal} class="closeIcon">${closeIcon}</button>
-                <form>
-                    <div class="input-group">
-                    <label>Nombre</label>
-                        <input value="${this.evolution?.name}">
-                    </div>
-                    <div class="input-group">
-                        <label>Tipo</label>
-                        <input value="${this.evolution?.type}">
-                    </div>
-                    <div class="input-group">
-                        <label>Está repetido</label>
-                        <input 
-                            type="checkbox"
-                            ?checked="${this.is_repeated}"
-                            @change="${this._handleCheckboxChange}"
-                        >
-                    </div>
-                    <button @click=${this._send_form}>Enviar</button>
-                </form>
-            </div>
-        </div>
-    `
-    }
-
-    warningModal() {
-        return html`
-        <div class="modal-shadow">
-            <div class="modal warn-modal">
-                <div class="modal-header">
-                    <span>Pokemon repetido</span>
-                </div>
-                <button @click=${(e) => this._switch_modal(e, false)} class="closeIcon">${closeIcon}</button>
-                <p>Puede cambiarlo en el punto mas cercano</p>
-            </div>
-        </div>
-        `
-    }
-
-    _handleCheckboxChange(e) {
-        this.is_repeated = e.target.checked;
-    }
-
-    _switch_modal(e, isFormModal = true) {
-        if (isFormModal) {
-            this.openModal = !this.openModal;
-        } else {
-            this.warning_trigger = !this.warning_trigger;
-        }
+    _toggle_modal() {
+        this.openModal = !this.openModal;
 
         this.requestUpdate();
-    }
-
-    _send_form() {
-        this._switch_modal(null, true);
-        if (this.is_repeated) {
-            this._switch_modal(null, false);
-        }
     }
 
     render() {
 
         return html`
-        ${this.openModal ? this.modal() : ""}
-        ${this.warning_trigger ? this.warningModal() : ""}
+            ${this.openModal ?
+                html`
+                <pokemon-modal @toggleModal=${this._toggle_modal}>
+                    <form-modal .evolution=${this.evolution}></form-modal>
+                </pokemon-modal>
+                ` : ""
+            }
             <div class="pokemon-evolution__container">
-                <button @click=${this._switch_modal} >${editIcon}</button>
+                <button @click=${this._toggle_modal} >${editIcon}</button>
                 <pokemon-card 
                     .name=${this.evolution?.name} 
                     .type=${this.evolution?.type} 
